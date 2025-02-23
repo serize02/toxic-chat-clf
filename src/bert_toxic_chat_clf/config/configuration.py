@@ -1,6 +1,6 @@
 from bert_toxic_chat_clf.constants import *
 from bert_toxic_chat_clf.utils.common import read_yaml, create_directories
-from bert_toxic_chat_clf.entity.config_entity import DataIngestionConfig, SetupModelConfig
+from bert_toxic_chat_clf.entity.config_entity import DataIngestionConfig, SetupModelConfig, TrainingConfig
 
 class ConfigurationManager:
     
@@ -41,3 +41,32 @@ class ConfigurationManager:
         )
 
         return setup_model_config
+
+    
+    def get_training_config(self) -> TrainingConfig:
+        
+        training = self.config.training
+        setup_model = self.config.setup_model
+
+        params = self.params
+        
+        create_directories([Path(training.root_dir)])
+
+        training_config = TrainingConfig(
+            root_dir=Path(training.root_dir),
+            model_path=Path(setup_model.model_path),
+            trained_model_path=Path(training.trained_model_path),
+            training_data_path=Path(self.config.data_ingestion.local_data_file),
+            params_train_size=params.TRAIN_SIZE,
+            params_max_len=params.MAX_LEN,
+            params_train_batch_size=params.TRAIN_BATCH_SIZE,
+            params_valid_batch_size=params.VALID_BATCH_SIZE,
+            params_epochs=params.EPOCHS,
+            params_learning_rate=params.LEARNING_RATE,
+            params_train_num_workers=params.TRAIN_NUM_WORKERS,
+            params_valid_num_workers=params.VALID_NUM_WORKERS,
+            params_train_shuffle=params.TRAIN_SHUFFLE,
+            params_valid_shuffle=params.VALID_SHUFFLE
+        )
+
+        return training_config

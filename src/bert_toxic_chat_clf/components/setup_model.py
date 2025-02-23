@@ -7,11 +7,11 @@ from pathlib import Path
 
 class BertClass(torch.nn.Module):
 
-    def __init__(self, classes: int, dropout: float):
+    def __init__(self, classes: int = 3, dropout: float = 0.3):
         super(BertClass, self).__init__()
         self.l1 = transformers.BertModel.from_pretrained('bert-base-uncased')
         self.l2 = torch.nn.Dropout(dropout)
-        self.l3 = torch.nn.Linear(786, classes)
+        self.l3 = torch.nn.Linear(768, classes)
 
     
     def forward(self, ids, mask, token_type_ids):

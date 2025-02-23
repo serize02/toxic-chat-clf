@@ -8,3 +8,7 @@ data_ingestion:
 setup_model:
   root_dir: artifacts/setup_model
   model_path: artifacts/setup_model/model.pth
+
+training:
+  root_dir: artifacts/training
+  trained_model_path: artifacts/training/model.pth
