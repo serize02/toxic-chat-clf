@@ -1,26 +1,24 @@
 from bert_toxic_chat_clf.config.configuration import ConfigurationManager
-from bert_toxic_chat_clf.components.data_ingestion import DataIngestion
+from bert_toxic_chat_clf.components.setup_model import SetupModel
 from bert_toxic_chat_clf import logger
 
-STAGE_NAME = 'data-ingestion'
+STAGE_NAME = 'setup-model'
 
-class DataIngestionTrainingPipeline:
+class SetupModelTrainingPipeline:
 
     def __init__(self):
         pass
 
-    def main(self):
+    def main():
         config = ConfigurationManager()
-        data_ingestion_config = config.get_data_ingestion_config()
-        data_ingestion = DataIngestion(config=data_ingestion_config)
-        data_ingestion.download_file()
-
+        setup_model_config = config.get_setup_model_config()
+        setup_model = SetupModel(setup_model_config)
+        setup_model.get_model()
 
 if __name__ == '__main__':
-    
     try:
         logger.info(f'Stage {STAGE_NAME} started')
-        obj = DataIngestionTrainingPipeline()
+        obj = SetupModelTrainingPipeline()
         obj.main()
         logger.info(f'{STAGE_NAME} completed successfully...')
     

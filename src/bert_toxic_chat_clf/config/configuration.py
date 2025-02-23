@@ -1,6 +1,6 @@
 from bert_toxic_chat_clf.constants import *
 from bert_toxic_chat_clf.utils.common import read_yaml, create_directories
-from bert_toxic_chat_clf.entity.config_entity import DataIngestionConfig
+from bert_toxic_chat_clf.entity.config_entity import DataIngestionConfig, SetupModelConfig
 
 class ConfigurationManager:
     
@@ -25,3 +25,19 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+    
+    
+    def get_setup_model_config(self) -> SetupModelConfig:
+        
+        config = self.config.setup_model
+
+        create_directories([config.root_dir])
+
+        setup_model_config = SetupModelConfig(
+            root_dir=Path(config.root_dir),
+            model_path=Path(config.model_path),
+            params_classes=self.params.CLASSES,
+            params_dropout=self.params.DROPOUT,
+        )
+
+        return setup_model_config
