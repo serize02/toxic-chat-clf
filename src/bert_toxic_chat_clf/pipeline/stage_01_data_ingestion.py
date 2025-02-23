@@ -2,7 +2,7 @@ from bert_toxic_chat_clf.config.configuration import ConfigurationManager
 from bert_toxic_chat_clf.components.data_ingestion import DataIngestion
 from bert_toxic_chat_clf import logger
 
-STAGE_NAME = 'Data Ingestion Stage'
+STAGE_NAME = 'Data Ingestion'
 
 class DataIngestionTrainingPipeline:
 
