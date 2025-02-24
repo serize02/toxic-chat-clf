@@ -1,0 +1,121 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/bert_toxic_chat_clf/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 64e9740d77dc30b9585c37a96117151a
+      size: 730
+    - path: src/bert_toxic_chat_clf/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 5767f038ac492a985d67105db05dd9cb
+      size: 825
+    outs:
+    - path: artifacts/data_ingestion/data.csv
+      hash: md5
+      md5: fe4804e4484a90fe7c49c1f079110dee
+      size: 89737
+  data_split:
+    cmd: python src/bert_toxic_chat_clf/pipeline/stage_02_data_split.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 64e9740d77dc30b9585c37a96117151a
+      size: 730
+    - path: src/bert_toxic_chat_clf/pipeline/stage_02_data_split.py
+      hash: md5
+      md5: ca816e07765a0b39b540421c3f6c669a
+      size: 787
+    params:
+      params.yaml:
+        TRAIN_SIZE: 0.7
+    outs:
+    - path: artifacts/data_split/test/test.csv
+      hash: md5
+      md5: 03567a9d1819ecffd84d50f4a7d31dc3
+      size: 26423
+    - path: artifacts/data_split/train/train.csv
+      hash: md5
+      md5: b18d89f67d8680f798bd21b288dd397a
+      size: 63329
+  setup_model:
+    cmd: python src/bert_toxic_chat_clf/pipeline/stage_03_setup_model.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 64e9740d77dc30b9585c37a96117151a
+      size: 730
+    - path: src/bert_toxic_chat_clf/pipeline/stage_03_setup_model.py
+      hash: md5
+      md5: 2e23ecd33fd13339b7708a6c5c346bce
+      size: 775
+    params:
+      params.yaml:
+        CLASSES: 3
+        DROPOUT: 0.3
+    outs:
+    - path: artifacts/setup_model/model.pth
+      hash: md5
+      md5: 32f9518351cd367edd64c12d60b61dc0
+      size: 438002886
+  train:
+    cmd: python src/bert_toxic_chat_clf/pipeline/stage_04_train.py
+    deps:
+    - path: artifacts/data_split/train/train.csv
+      hash: md5
+      md5: b18d89f67d8680f798bd21b288dd397a
+      size: 63329
+    - path: artifacts/setup_model/model.pth
+      hash: md5
+      md5: 32f9518351cd367edd64c12d60b61dc0
+      size: 438002886
+    - path: config/config.yaml
+      hash: md5
+      md5: 64e9740d77dc30b9585c37a96117151a
+      size: 730
+    - path: src/bert_toxic_chat_clf/pipeline/stage_04_train.py
+      hash: md5
+      md5: 0bb3085f1bf8b0741bd653df36e033fc
+      size: 857
+    params:
+      params.yaml:
+        EPOCHS: 1
+        LEARNING_RATE: 0.01
+        MAX_LEN: 200
+        TRAIN_BATCH_SIZE: 8
+        TRAIN_NUM_WORKERS: 0
+        TRAIN_SHUFFLE: true
+    outs:
+    - path: artifacts/training/model.pth
+      hash: md5
+      md5: 5036a74ad2dd7b52628a790078c5fbb3
+      size: 438002886
+  evaluation:
+    cmd: python src/bert_toxic_chat_clf/pipeline/stage_05_evaluation.py
+    deps:
+    - path: artifacts/data_split/test/test.csv
+      hash: md5
+      md5: 03567a9d1819ecffd84d50f4a7d31dc3
+      size: 26423
+    - path: artifacts/training/model.pth
+      hash: md5
+      md5: 5036a74ad2dd7b52628a790078c5fbb3
+      size: 438002886
+    - path: config/config.yaml
+      hash: md5
+      md5: 64e9740d77dc30b9585c37a96117151a
+      size: 730
+    - path: params.yaml
+      hash: md5
+      md5: a897ad5de2fefff6263e9fa3464471b9
+      size: 253
+    - path: src/bert_toxic_chat_clf/pipeline/stage_04_train.py
+      hash: md5
+      md5: 0bb3085f1bf8b0741bd653df36e033fc
+      size: 857
+    outs:
+    - path: scores.json
+      hash: md5
+      md5: 123efff25baad9b90dafb6c328dfd2a0
+      size: 123

@@ -10,10 +10,11 @@ class EvaluationPipeline():
         pass
 
 
-    def main():
+    def main(self):
         config = ConfigurationManager()
         evaluation_config = config.get_evaluation_config()
         evaluation = Evaluation(evaluation_config)
+        evaluation.setup_device()
         evaluation.load_model()
         evaluation.load_data()
         evaluation.run_validation()

@@ -9,7 +9,7 @@ class SetupModelTrainingPipeline:
     def __init__(self):
         pass
 
-    def main():
+    def main(self):
         config = ConfigurationManager()
         setup_model_config = config.get_setup_model_config()
         setup_model = SetupModel(setup_model_config)

@@ -12,7 +12,7 @@ class DataSplitPipeline:
     def main(self):
         config = ConfigurationManager()
         data_split_config = config.get_data_split_config()
-        data_split = DataSplit(config=data_ingestion_config)
+        data_split = DataSplit(config=data_split_config)
         data_split.load_data()
         data_split.split()
 
