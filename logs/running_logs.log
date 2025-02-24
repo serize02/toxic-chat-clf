@@ -260,3 +260,261 @@ NameError: name 'CustomDataset' is not defined
 [2025-02-23 12:23:52,409: INFO : main: Stage training started]
 [2025-02-23 12:23:52,409: INFO : common: created directory at artifacts/training]
 [2025-02-23 12:38:32,044: INFO : main: training completed successfully...]
+[2025-02-23 18:29:19,227: INFO : main: Stage data-ingestion started]
+[2025-02-23 18:29:19,228: INFO : common: yaml file: config/config.yaml loaded successfully]
+[2025-02-23 18:29:19,229: INFO : common: yaml file: params.yaml loaded successfully]
+[2025-02-23 18:29:19,229: INFO : common: created directory at artifacts]
+[2025-02-23 18:29:19,229: INFO : common: created directory at artifacts/data_ingestion]
+[2025-02-23 18:29:19,229: INFO : data_ingestion: Downloading data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 18:29:19,236: ERROR : main: HTTPSConnectionPool(host='drive.google.com', port=443): Max retries exceeded with url: /uc?/export=download&id=1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x31b0fa5b0>: Failed to resolve 'drive.google.com' ([Errno 8] nodename nor servname provided, or not known)"))]
+Traceback (most recent call last):
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connection.py", line 199, in _new_conn
+    sock = connection.create_connection(
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/socket.py", line 930, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 490, in _make_request
+    raise new_e
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 466, in _make_request
+    self._validate_conn(conn)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 1095, in _validate_conn
+    conn.connect()
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connection.py", line 693, in connect
+    self.sock = sock = self._new_conn()
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connection.py", line 206, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x31b0fa5b0>: Failed to resolve 'drive.google.com' ([Errno 8] nodename nor servname provided, or not known)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='drive.google.com', port=443): Max retries exceeded with url: /uc?/export=download&id=1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x31b0fa5b0>: Failed to resolve 'drive.google.com' ([Errno 8] nodename nor servname provided, or not known)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "main.py", line 13, in <module>
+    data_ingestion.download_file()
+  File "/Users/ernestodavidserizeportela/WorkSpace/toxic-chat-clf/src/bert_toxic_chat_clf/components/data_ingestion.py", line 30, in download_file
+    raise e
+  File "/Users/ernestodavidserizeportela/WorkSpace/toxic-chat-clf/src/bert_toxic_chat_clf/components/data_ingestion.py", line 25, in download_file
+    gdown.download(url, local_file)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/gdown/download.py", line 202, in download
+    res = sess.get(url, stream=True, verify=verify)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='drive.google.com', port=443): Max retries exceeded with url: /uc?/export=download&id=1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x31b0fa5b0>: Failed to resolve 'drive.google.com' ([Errno 8] nodename nor servname provided, or not known)"))
+[2025-02-23 18:29:47,448: INFO : main: Stage data-ingestion started]
+[2025-02-23 18:29:47,449: INFO : common: yaml file: config/config.yaml loaded successfully]
+[2025-02-23 18:29:47,449: INFO : common: yaml file: params.yaml loaded successfully]
+[2025-02-23 18:29:47,449: INFO : common: created directory at artifacts]
+[2025-02-23 18:29:47,449: INFO : common: created directory at artifacts/data_ingestion]
+[2025-02-23 18:29:47,449: INFO : data_ingestion: Downloading data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 18:29:55,470: INFO : data_ingestion: Downloaded data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 18:29:55,470: INFO : main: data-ingestion completed successfully...]
+[2025-02-23 18:29:55,470: INFO : main: Stage setup-model started]
+[2025-02-23 18:29:55,471: INFO : common: created directory at artifacts/setup_model]
+[2025-02-23 18:29:57,369: INFO : main: setup-model completed successfully...]
+[2025-02-23 18:29:57,370: INFO : main: Stage training started]
+[2025-02-23 18:29:57,370: INFO : common: created directory at artifacts/training]
+[2025-02-23 20:05:33,340: INFO : main: Stage data-ingestion started]
+[2025-02-23 20:05:33,341: INFO : common: yaml file: config/config.yaml loaded successfully]
+[2025-02-23 20:05:33,341: INFO : common: yaml file: params.yaml loaded successfully]
+[2025-02-23 20:05:33,341: INFO : common: created directory at artifacts]
+[2025-02-23 20:05:33,341: INFO : common: created directory at artifacts/data_ingestion]
+[2025-02-23 20:05:33,341: INFO : data_ingestion: Downloading data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:05:42,306: INFO : data_ingestion: Downloaded data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:05:42,306: INFO : main: data-ingestion completed successfully...]
+[2025-02-23 20:05:42,306: INFO : main: Stage split-data started]
+[2025-02-23 20:05:42,307: INFO : common: created directory at artifacts/data_split]
+[2025-02-23 20:05:42,307: INFO : common: created directory at artifacts/data_split/train]
+[2025-02-23 20:05:42,308: INFO : common: created directory at artifacts/data_split/test]
+[2025-02-23 20:05:42,308: ERROR : main: __init__() missing 1 required positional argument: 'params_train_size']
+Traceback (most recent call last):
+  File "main.py", line 18, in <module>
+    data_split_config = config.get_data_split_config()
+  File "/Users/ernestodavidserizeportela/WorkSpace/toxic-chat-clf/src/bert_toxic_chat_clf/config/configuration.py", line 42, in get_data_split_config
+    data_split_config = DataSplitConfig(
+TypeError: __init__() missing 1 required positional argument: 'params_train_size'
+[2025-02-23 20:09:24,438: INFO : main: Stage data-ingestion started]
+[2025-02-23 20:09:24,439: INFO : common: yaml file: config/config.yaml loaded successfully]
+[2025-02-23 20:09:24,439: INFO : common: yaml file: params.yaml loaded successfully]
+[2025-02-23 20:09:24,440: INFO : common: created directory at artifacts]
+[2025-02-23 20:09:24,440: INFO : common: created directory at artifacts/data_ingestion]
+[2025-02-23 20:09:24,440: INFO : data_ingestion: Downloading data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:09:29,840: INFO : data_ingestion: Downloaded data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:09:29,840: INFO : main: data-ingestion completed successfully...]
+[2025-02-23 20:09:29,840: INFO : main: Stage split-data started]
+[2025-02-23 20:09:29,841: INFO : common: created directory at artifacts/data_split]
+[2025-02-23 20:09:29,841: INFO : common: created directory at artifacts/data_split/train]
+[2025-02-23 20:09:29,841: INFO : common: created directory at artifacts/data_split/test]
+[2025-02-23 20:09:29,841: ERROR : main: name 'DataSplit' is not defined]
+Traceback (most recent call last):
+  File "main.py", line 19, in <module>
+    data_split = DataSplit(config=data_ingestion_config)
+NameError: name 'DataSplit' is not defined
+[2025-02-23 20:10:08,825: INFO : main: Stage data-ingestion started]
+[2025-02-23 20:10:08,826: INFO : common: yaml file: config/config.yaml loaded successfully]
+[2025-02-23 20:10:08,827: INFO : common: yaml file: params.yaml loaded successfully]
+[2025-02-23 20:10:08,827: INFO : common: created directory at artifacts]
+[2025-02-23 20:10:08,827: INFO : common: created directory at artifacts/data_ingestion]
+[2025-02-23 20:10:08,827: INFO : data_ingestion: Downloading data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:10:19,506: INFO : data_ingestion: Downloaded data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:10:19,507: INFO : main: data-ingestion completed successfully...]
+[2025-02-23 20:10:19,507: INFO : main: Stage split-data started]
+[2025-02-23 20:10:19,507: INFO : common: created directory at artifacts/data_split]
+[2025-02-23 20:10:19,507: INFO : common: created directory at artifacts/data_split/train]
+[2025-02-23 20:10:19,507: INFO : common: created directory at artifacts/data_split/test]
+[2025-02-23 20:10:19,508: ERROR : main: 'DataIngestionConfig' object has no attribute 'data_path']
+Traceback (most recent call last):
+  File "main.py", line 21, in <module>
+    data_split.load_data()
+  File "/Users/ernestodavidserizeportela/WorkSpace/toxic-chat-clf/src/bert_toxic_chat_clf/components/data_split.py", line 15, in load_data
+    self.df = pd.read_csv(self.config.data_path)
+AttributeError: 'DataIngestionConfig' object has no attribute 'data_path'
+[2025-02-23 20:10:59,488: INFO : main: Stage data-ingestion started]
+[2025-02-23 20:10:59,489: INFO : common: yaml file: config/config.yaml loaded successfully]
+[2025-02-23 20:10:59,490: INFO : common: yaml file: params.yaml loaded successfully]
+[2025-02-23 20:10:59,490: INFO : common: created directory at artifacts]
+[2025-02-23 20:10:59,490: INFO : common: created directory at artifacts/data_ingestion]
+[2025-02-23 20:10:59,490: INFO : data_ingestion: Downloading data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:11:05,052: INFO : data_ingestion: Downloaded data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:11:05,052: INFO : main: data-ingestion completed successfully...]
+[2025-02-23 20:11:05,052: INFO : main: Stage split-data started]
+[2025-02-23 20:11:05,052: INFO : common: created directory at artifacts/data_split]
+[2025-02-23 20:11:05,052: INFO : common: created directory at artifacts/data_split/train]
+[2025-02-23 20:11:05,052: INFO : common: created directory at artifacts/data_split/test]
+[2025-02-23 20:11:05,061: ERROR : main: name 'train_size' is not defined]
+Traceback (most recent call last):
+  File "main.py", line 22, in <module>
+    data_split.split()
+  File "/Users/ernestodavidserizeportela/WorkSpace/toxic-chat-clf/src/bert_toxic_chat_clf/components/data_split.py", line 23, in split
+    train_dataset=df.sample(frac=train_size,random_state=42)
+NameError: name 'train_size' is not defined
+[2025-02-23 20:12:01,243: INFO : main: Stage data-ingestion started]
+[2025-02-23 20:12:01,244: INFO : common: yaml file: config/config.yaml loaded successfully]
+[2025-02-23 20:12:01,245: INFO : common: yaml file: params.yaml loaded successfully]
+[2025-02-23 20:12:01,245: INFO : common: created directory at artifacts]
+[2025-02-23 20:12:01,245: INFO : common: created directory at artifacts/data_ingestion]
+[2025-02-23 20:12:01,245: INFO : data_ingestion: Downloading data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:13:18,626: ERROR : main: HTTPSConnectionPool(host='doc-0o-1o-docs.googleusercontent.com', port=443): Max retries exceeded with url: /docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/kul3p0d38qp99q7jpc8f7bmv0jhcrg4e/1740359475000/06901382624441071134/*/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ?uuid=5a6dc7fc-074c-4f12-bc8c-729e90842e83 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x3163d5310>: Failed to establish a new connection: [Errno 60] Operation timed out'))]
+Traceback (most recent call last):
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connection.py", line 199, in _new_conn
+    sock = connection.create_connection(
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [Errno 60] Operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 490, in _make_request
+    raise new_e
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 466, in _make_request
+    self._validate_conn(conn)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 1095, in _validate_conn
+    conn.connect()
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connection.py", line 693, in connect
+    self.sock = sock = self._new_conn()
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connection.py", line 214, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x3163d5310>: Failed to establish a new connection: [Errno 60] Operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='doc-0o-1o-docs.googleusercontent.com', port=443): Max retries exceeded with url: /docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/kul3p0d38qp99q7jpc8f7bmv0jhcrg4e/1740359475000/06901382624441071134/*/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ?uuid=5a6dc7fc-074c-4f12-bc8c-729e90842e83 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x3163d5310>: Failed to establish a new connection: [Errno 60] Operation timed out'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "main.py", line 14, in <module>
+    data_ingestion.download_file()
+  File "/Users/ernestodavidserizeportela/WorkSpace/toxic-chat-clf/src/bert_toxic_chat_clf/components/data_ingestion.py", line 30, in download_file
+    raise e
+  File "/Users/ernestodavidserizeportela/WorkSpace/toxic-chat-clf/src/bert_toxic_chat_clf/components/data_ingestion.py", line 25, in download_file
+    gdown.download(url, local_file)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/gdown/download.py", line 202, in download
+    res = sess.get(url, stream=True, verify=verify)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/sessions.py", line 724, in send
+    history = [resp for resp in gen]
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/sessions.py", line 724, in <listcomp>
+    history = [resp for resp in gen]
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/sessions.py", line 265, in resolve_redirects
+    resp = self.send(
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/homebrew/anaconda3/envs/bert/lib/python3.8/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='doc-0o-1o-docs.googleusercontent.com', port=443): Max retries exceeded with url: /docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/kul3p0d38qp99q7jpc8f7bmv0jhcrg4e/1740359475000/06901382624441071134/*/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ?uuid=5a6dc7fc-074c-4f12-bc8c-729e90842e83 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x3163d5310>: Failed to establish a new connection: [Errno 60] Operation timed out'))
+[2025-02-23 20:14:20,136: INFO : main: Stage data-ingestion started]
+[2025-02-23 20:14:20,137: INFO : common: yaml file: config/config.yaml loaded successfully]
+[2025-02-23 20:14:20,137: INFO : common: yaml file: params.yaml loaded successfully]
+[2025-02-23 20:14:20,137: INFO : common: created directory at artifacts]
+[2025-02-23 20:14:20,137: INFO : common: created directory at artifacts/data_ingestion]
+[2025-02-23 20:14:20,137: INFO : data_ingestion: Downloading data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:14:25,996: INFO : data_ingestion: Downloaded data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:14:25,997: INFO : main: data-ingestion completed successfully...]
+[2025-02-23 20:14:25,997: INFO : main: Stage split-data started]
+[2025-02-23 20:14:25,997: INFO : common: created directory at artifacts/data_split]
+[2025-02-23 20:14:25,997: INFO : common: created directory at artifacts/data_split/train]
+[2025-02-23 20:14:25,997: INFO : common: created directory at artifacts/data_split/test]
+[2025-02-23 20:14:26,008: ERROR : main: name 'save_data' is not defined]
+Traceback (most recent call last):
+  File "main.py", line 22, in <module>
+    data_split.split()
+  File "/Users/ernestodavidserizeportela/WorkSpace/toxic-chat-clf/src/bert_toxic_chat_clf/components/data_split.py", line 27, in split
+    save_data(self.config.train_data_path, train_dataset)
+NameError: name 'save_data' is not defined
+[2025-02-23 20:18:36,047: INFO : main: Stage data-ingestion started]
+[2025-02-23 20:18:36,048: INFO : common: yaml file: config/config.yaml loaded successfully]
+[2025-02-23 20:18:36,049: INFO : common: yaml file: params.yaml loaded successfully]
+[2025-02-23 20:18:36,049: INFO : common: created directory at artifacts]
+[2025-02-23 20:18:36,049: INFO : common: created directory at artifacts/data_ingestion]
+[2025-02-23 20:18:36,049: INFO : data_ingestion: Downloading data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:18:53,776: INFO : data_ingestion: Downloaded data from https://drive.google.com/file/d/1IcEWOO8q8VpidPF4p51wlHPXXUnNONeZ/view?usp=share_link into file artifacts/data_ingestion/data.csv]
+[2025-02-23 20:18:53,777: INFO : main: data-ingestion completed successfully...]
+[2025-02-23 20:18:53,777: INFO : main: Stage split-data started]
+[2025-02-23 20:18:53,777: INFO : common: created directory at artifacts/data_split]
+[2025-02-23 20:18:53,777: INFO : common: created directory at artifacts/data_split/train]
+[2025-02-23 20:18:53,777: INFO : common: created directory at artifacts/data_split/test]
+[2025-02-23 20:18:53,798: INFO : main: split-data completed successfully...]
+[2025-02-23 20:18:53,798: INFO : main: Stage setup-model started]
+[2025-02-23 20:18:53,798: INFO : common: created directory at artifacts/setup_model]
+[2025-02-23 20:18:58,706: INFO : main: setup-model completed successfully...]
+[2025-02-23 20:18:58,706: INFO : main: Stage training started]
+[2025-02-23 20:18:58,706: INFO : common: created directory at artifacts/training]

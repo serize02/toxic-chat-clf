@@ -2,6 +2,7 @@ from bert_toxic_chat_clf.config.configuration import ConfigurationManager
 from bert_toxic_chat_clf.components.data_ingestion import DataIngestion
 from bert_toxic_chat_clf.components.setup_model import SetupModel
 from bert_toxic_chat_clf.components.trainer import Trainer
+from bert_toxic_chat_clf.components.data_split import DataSplit
 from bert_toxic_chat_clf import logger
 
 try:
@@ -11,6 +12,14 @@ try:
     data_ingestion_config = config.get_data_ingestion_config()
     data_ingestion = DataIngestion(config=data_ingestion_config)
     data_ingestion.download_file()
+    logger.info(f'{STAGE_NAME} completed successfully...')
+
+    STAGE_NAME = 'split-data'
+    logger.info(f'Stage {STAGE_NAME} started')
+    data_split_config = config.get_data_split_config()
+    data_split = DataSplit(config=data_split_config)
+    data_split.load_data()
+    data_split.split()
     logger.info(f'{STAGE_NAME} completed successfully...')
 
     STAGE_NAME = 'setup-model'
@@ -27,9 +36,8 @@ try:
     trainer.setup_device()
     trainer.setup_model()
     trainer.setup_optimizer()
-    trainer.split_data()
+    trainer.load_data()
     trainer.train()
-    trainer.run_validation()
     logger.info(f'{STAGE_NAME} completed successfully...')
 
 except Exception as e:

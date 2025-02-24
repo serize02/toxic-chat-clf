@@ -16,9 +16,8 @@ class TrainingPipeline:
         trainer.setup_device()
         trainer.setup_model()
         trainer.setup_optimizer()
-        trainer.split_data()
+        trainer.load_data()
         trainer.train()
-        trainer.run_validation()
 
 
 if __name__ == '__main__':
