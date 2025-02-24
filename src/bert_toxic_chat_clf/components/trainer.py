@@ -35,7 +35,6 @@ class Trainer:
         df = pd.read_csv(self.config.training_data_path)
 
         training_set = CustomDataset(df, self.config.params_max_len)
-        # testing_set = CustomDataset(test_dataset, self.config.params_max_len)
 
         train_params = {
             'batch_size': self.config.params_train_batch_size,
@@ -43,15 +42,8 @@ class Trainer:
             'num_workers': self.config.params_train_num_workers
         }
 
-        # test_params = {
-        #     'batch_size': self.config.params_valid_batch_size,
-        #     'shuffle': self.config.params_valid_shuffle,
-        #     'num_workers': self.config.params_valid_num_workers
-        # }
-
         self.training_loader = DataLoader(training_set, **train_params)
-        # self.testing_loader = DataLoader(testing_set, **test_params)
-    
+
 
     def loss_fn(self, outputs, targets):
         return torch.nn.BCEWithLogitsLoss()(outputs, targets)
@@ -88,47 +80,7 @@ class Trainer:
         self.save_model(path=self.config.trained_model_path, model=self.model)
             
 
-    # def validation(self, epoch):
-
-    #     self.model.eval()
-
-    #     fin_targets=[]
-    #     fin_outputs=[]
-        
-    #     with torch.no_grad():
-    #         for _, data in enumerate(self.testing_loader, 0):
-                
-    #             ids = data['ids'].to(self.device, dtype = torch.long)
-    #             mask = data['mask'].to(self.device, dtype = torch.long)
-    #             token_type_ids = data['token_type_ids'].to(self.device, dtype = torch.long)
-    #             targets = data['targets'].to(self.device, dtype = torch.float)
-                
-    #             outputs = self.model(ids, mask, token_type_ids)
-    #             fin_targets.extend(targets.cpu().detach().numpy().tolist())
-    #             fin_outputs.extend(torch.sigmoid(outputs).cpu().detach().numpy().tolist())
-        
-    #     return fin_outputs, fin_targets
-
-
-    # def run_validation(self):
-
-    #     epochs = self.config.params_epochs
-
-    #     for epoch in range(epochs):
-            
-    #         outputs, targets = self.validation(epoch)
-    #         outputs = np.array(outputs) >= 0.5
-            
-    #         accuracy = metrics.accuracy_score(targets, outputs)
-    #         f1_score_micro = metrics.f1_score(targets, outputs, average='micro')
-    #         f1_score_macro = metrics.f1_score(targets, outputs, average='macro')
-            
-    #         print(f"Accuracy Score = {accuracy}")
-    #         print(f"F1 Score (Micro) = {f1_score_micro}")
-    #         print(f"F1 Score (Macro) = {f1_score_macro}")
-        
-    #     self.save_model(path=self.config.trained_model_path, model=self.model)
-        
+    
     @staticmethod
     def save_model(path: Path, model: BertClass):
         torch.save(model.state_dict(), path)

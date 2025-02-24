@@ -19,3 +19,6 @@ setup_model:
 training:
   root_dir: artifacts/training
   trained_model_path: artifacts/training/model.pth
+
+evaluation:
+  mlflow_uri: https://dagshub.com/serize02/toxic-chat-clf.mlflow

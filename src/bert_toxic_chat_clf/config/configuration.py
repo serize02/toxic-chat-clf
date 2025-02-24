@@ -4,7 +4,8 @@ from bert_toxic_chat_clf.entity.config_entity import (
     DataIngestionConfig,
     DataSplitConfig,
     SetupModelConfig,
-    TrainingConfig
+    TrainingConfig,
+    EvaluationConfig
 )
 
 
@@ -90,3 +91,19 @@ class ConfigurationManager:
         )
 
         return training_config
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+
+        eval_config = EvaluationConfig(
+            model_path=Path(self.config.training.trained_model_path),
+            testing_data_path=Path(self.config.data_split.test_data_path),
+            all_params=self.params,
+            mlflow_uri=self.config.evaluation.mlflow_uri,
+            params_max_len=self.params.MAX_LEN,
+            params_valid_batch_size=self.params.VALID_BATCH_SIZE,
+            params_epochs=self.params.EPOCHS,
+            params_valid_num_workers=self.params.VALID_NUM_WORKERS,
+            params_valid_shuffle=self.params.VALID_SHUFFLE
+        )
+
+        return eval_config

@@ -39,3 +39,16 @@ class TrainingConfig:
     params_learning_rate: float
     params_train_num_workers: int
     params_train_shuffle: bool
+
+
+@dataclass
+class EvaluationConfig:
+    model_path: Path
+    testing_data_path: Path
+    all_params: dict
+    mlflow_uri: str
+    params_max_len: int
+    params_valid_batch_size: int
+    params_epochs: int
+    params_valid_num_workers: int
+    params_valid_shuffle: bool

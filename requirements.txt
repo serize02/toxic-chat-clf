@@ -16,4 +16,5 @@ types-pyYAML
 scipy
 transformers
 scikit-learn
+dagshub
 -e .
